@@ -42,6 +42,9 @@ cp $PWD/debs/*.deb $WORK_DIR/chroot/
 
 cp $PWD/chroot.sh $WORK_DIR/chroot/
 
+# copy firmware of Qualcomm soc for Ntmer TW220 product
+$PWD/copy-tw220-firmware.sh $RELEASE
+
 # setup the live environment under chroot
 chroot $WORK_DIR/chroot /bin/bash -c "RELEASE=$RELEASE ./chroot.sh"
 
@@ -144,6 +147,7 @@ mkdir $WORK_DIR/image/isolinux/dtb
 #cp $WORK_DIR/chroot/usr/lib/linux-image-*/apple/*.dtb $WORK_DIR/image/isolinux/dtb
 #cp $WORK_DIR/chroot/usr/lib/linux-image-*/apple/*.dtb $WORK_DIR/image/isolinux/dtb
 cp $WORK_DIR/chroot/usr/lib/linux-image-*/qcom/sc8280xp-lenovo-thinkpad-x13s.dtb $WORK_DIR/image/isolinux/dtb/f249803d-0d95-54f3-a28f-f26c14a03f3b.dtb
+cp $WORK_DIR/chroot/usr/lib/linux-image-*/qcom/sc8280xp-ntm-tw220.dtb $WORK_DIR/image/isolinux/dtb/0d0a41c6-ac69-512a-8d36-96ca6d84aee1.dtb
 
 # copy kernel
 cp $WORK_DIR/chroot/boot/vmlinuz-* $WORK_DIR/image/casper/vmlinuz
@@ -156,6 +160,7 @@ cp $WORK_DIR/chroot/boot/initrd.img-* $WORK_DIR/image/casper/initrd
     sudo mkfs.vfat efiboot.img && \
     LC_CTYPE=C mmd -i efiboot.img dtb efi efi/boot && \
     LC_CTYPE=C mcopy -i efiboot.img ./dtb/f249803d-0d95-54f3-a28f-f26c14a03f3b.dtb ::dtb/ && \
+    LC_CTYPE=C mcopy -i efiboot.img ./dtb/0d0a41c6-ac69-512a-8d36-96ca6d84aee1.dtb ::dtb/ && \
     LC_CTYPE=C mcopy -i efiboot.img ./grubaa64.efi ::efi/boot/ && \
     LC_CTYPE=C mcopy -i efiboot.img ./bootaa64.efi ::efi/boot/
 )

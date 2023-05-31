@@ -16,6 +16,18 @@ prereqs)
 esac
 
 . /usr/share/initramfs-tools/hook-functions
-mkdir -p ${DESTDIR}/lib/firmware/qcom/LENOVO/21BX || true
-cp -pnLR /lib/firmware/qcom/LENOVO/21BX/* ${DESTDIR}/lib/firmware/qcom/LENOVO/21BX/
-chmod 644 ${DESTDIR}/lib/firmware/qcom/LENOVO/21BX/*
+
+mkdir -p ${DESTDIR}/lib/firmware/qcom/LENOVO || true
+mkdir -p ${DESTDIR}/lib/firmware/qcom/sc8280xp/LENOVO/21BX || true
+cp -pnLR /lib/firmware/qcom/LENOVO/21BX/* ${DESTDIR}/lib/firmware/qcom/sc8280xp/LENOVO/21BX/
+chmod 644 ${DESTDIR}/lib/firmware/qcom/sc8280xp/LENOVO/21BX/*
+ln -sf ../sc8280xp/LENOVO/21BX ${DESTDIR}/lib/firmware/qcom/LENOVO/21BX
+
+mkdir -p ${DESTDIR}/lib/firmware/qcom/Ntmer || true
+mkdir -p ${DESTDIR}/lib/firmware/qcom/sc8280xp/Ntmer/TW220 || true
+cp -pnLR /lib/firmware/qcom/Ntmer/TW220/* ${DESTDIR}/lib/firmware/qcom/sc8280xp/Ntmer/TW220/
+chmod 644 ${DESTDIR}/lib/firmware/qcom/sc8280xp/Ntmer/TW220/*
+ln -sf ../sc8280xp/Ntmer/TW220 ${DESTDIR}/lib/firmware/qcom/Ntmer/TW220
+
+cp /lib/firmware/qcom/a660_sqe.fw ${DESTDIR}/lib/firmware/qcom/
+cp /lib/firmware/qcom/a690_gmu.bin ${DESTDIR}/lib/firmware/qcom/
